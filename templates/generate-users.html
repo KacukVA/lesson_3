@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users generator</title>
+</head>
+<body>
+    <form method="post">
+        <label>
+            <input type="number" name="emails_amount" value="100">
+        </label>
+        <button type="submit">Generate!</button>
+    </form>
+    {% for email in emails %}
+    <p>{{ email }}</p>
+    {% endfor %}
+</body>
+</html>
