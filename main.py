@@ -11,7 +11,10 @@ app = Flask(__name__)
 @app.route('/requirements/', methods=['get'])
 def requirements():
     context = {}
-    with open(generate_if_not_exists('requirements.txt'), 'r') as f:
+    file = 'requirements.txt'
+    if not os.path.exists(file):
+        os.system(f'pip freeze > {file}')
+    with open(file, 'r') as f:
         context['content'] = f.read().split()
     return render_template('requirements.html', **context)
 
@@ -35,12 +38,6 @@ def space():
     if r.status_code == 200:
         context['astro_number'] = len(r.json()["people"])
     return render_template('space.html', **context)
-
-
-def generate_if_not_exists(file: str) -> str:
-    if not os.path.exists(file):
-        os.system('pip freeze > requirements.txt')
-    return 'requirements.txt'
 
 
 if __name__ == '__main__':
