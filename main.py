@@ -33,10 +33,12 @@ def generate_users():
 
 @app.route('/space/', methods=['get'])
 def space():
-    context = {'astro_number': 0}
-    r = requests.get('http://api.open-notify.org/astros.json')
-    if r.status_code == 200:
+    context = {}
+    try:
+        r = requests.get('http://api.open-notify.org/astros.json')
         context['astro_number'] = len(r.json()["people"])
+    except OSError:
+        ...
     return render_template('space.html', **context)
 
 
