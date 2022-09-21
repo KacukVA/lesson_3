@@ -11,10 +11,10 @@ app = Flask(__name__)
 @app.route('/requirements/', methods=['get'])
 def requirements():
     context = {}
-    file = 'requirements.txt'
-    if not os.path.exists(file):
-        os.system(f'pip freeze > {file}')
-    with open(file, 'r') as f:
+    file_name = 'requirements.txt'
+    if not os.path.exists(file_name):
+        os.system(f'pip freeze > {file_name}')
+    with open(file_name, 'r') as f:
         context['content'] = f.read().split()
     return render_template('requirements.html', **context)
 
